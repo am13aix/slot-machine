@@ -14,14 +14,14 @@ use Demo\Domain\Services\GenerateSpinService;
 
 class SpinService implements ServiceInterface
 {
-    /** @var ServiceInterface|CalculatePayoutService */
+    /** @var GenerateSpinService */
     private $calculatePayoutService = null;
 
-    /** @var ServiceInterface|GenerateSpinService */
+    /** @var CalculatePayoutService */
     private $generateSpinService = null;
 
 
-    public function __construct(ServiceInterface $generateSpinService, ServiceInterface $calculatePayoutService)
+    public function __construct(GenerateSpinService $generateSpinService, CalculatePayoutService $calculatePayoutService)
     {
         $this->calculatePayoutService = $calculatePayoutService;
         $this->generateSpinService = $generateSpinService;

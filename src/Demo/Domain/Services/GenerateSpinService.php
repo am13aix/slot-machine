@@ -1,12 +1,13 @@
 <?php
 
+
 namespace Demo\Domain\Services;
+
 
 use App\Services\DTO\Request\RequestInterface;
 use App\Services\DTO\Request\ResponseInterface;
-use App\Services\ServiceInterface;
 
-class GenerateSpinService implements ServiceInterface
+class GenerateSpinService implements GenerateSpinServiceInterface
 {
 
     public function execute(RequestInterface $request = null): ?ResponseInterface

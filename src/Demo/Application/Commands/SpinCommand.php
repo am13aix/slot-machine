@@ -22,9 +22,9 @@ class SpinCommand extends Command
     /**
      * SpinCommand constructor.
      *
-     * @param ServiceInterface|SpinService $spinService
+     * @param SpinService $spinService
      */
-    public function __construct(ServiceInterface $spinService)
+    public function __construct(SpinService $spinService)
     {
         parent::__construct();
         $this->spinService = $spinService;
@@ -32,7 +32,7 @@ class SpinCommand extends Command
 
     public function handle()
     {
-        $spinResponse = $this->spinService->execute(new SpinRequest('EUR', 100));
-        ECHO json_encode($spinResponse) . PHP_EOL;
+//        $spinResponse = $this->spinService->execute(new SpinRequest('EUR', 100));
+//        ECHO json_encode($spinResponse) . PHP_EOL;
     }
 }
