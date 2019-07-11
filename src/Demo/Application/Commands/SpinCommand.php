@@ -3,6 +3,9 @@
 
 namespace Demo\Application\Commands;
 
+use App\Services\ServiceInterface;
+use Demo\Application\Services\DTO\Request\SpinRequest;
+use Demo\Application\Services\SpinService;
 use Illuminate\Console\Command;
 
 class SpinCommand extends Command
@@ -13,14 +16,23 @@ class SpinCommand extends Command
     /** @var string */
     protected $description = 'Generate a random spin with a bet amount of Eur 1.00';
 
-    public function __construct()
+    /** @var SpinService */
+    private $spinService;
+
+    /**
+     * SpinCommand constructor.
+     *
+     * @param ServiceInterface|SpinService $spinService
+     */
+    public function __construct(ServiceInterface $spinService)
     {
         parent::__construct();
-        //$this->bonusInstanceBatchProcessor = $bonusInstanceBatchProcessor;
+        $this->spinService = $spinService;
     }
 
     public function handle()
     {
-        //$this->bonusInstanceBatchProcessor->process();
+        $spinResponse = $this->spinService->execute(new SpinRequest('EUR', 100));
+        ECHO json_encode($spinResponse) . PHP_EOL;
     }
 }
