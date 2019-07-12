@@ -47,7 +47,6 @@ class SpinService implements ServiceInterface
         /** @var array $generatedGrid */
         $generatedGrid = $generateSpinServiceResponse->getGrid();
 
-
         //calculate if there is a payout
         /** @var CalculatePayoutResponse $calculatePayoutResponse */
         $calculatePayoutResponse = $this->calculatePayoutService->execute(new CalculatePayoutRequest($generatedGrid));
@@ -57,9 +56,7 @@ class SpinService implements ServiceInterface
             $totalPayoutPercentage = $totalPayoutPercentage + (int) $rowInformation['payoutPercentage'];
         }
 
-        //TODO: Return response with win
-        return new SpinResponse('EUR', 20, $totalPayoutPercentage);
-
-
+        //Return response with win
+        return new SpinResponse($totalPayoutPercentage, $calculatePayoutResponse->getGridWithRowPayout());
     }
 }

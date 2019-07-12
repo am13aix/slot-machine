@@ -34,14 +34,21 @@ class SpinCommand extends Command
     {
         try{
             $spinRequest= new SpinRequest('EUR', 10);
-            ECHO 'Bet: ' . $spinRequest->getCurrency() . ' ' . $spinRequest->getAmount() . PHP_EOL;
+            ECHO PHP_EOL . PHP_EOL . 'Bet: ' . $spinRequest->getCurrency() . ' ' . $spinRequest->getAmount() . ' cents';
 
             $spinResponse = $this->spinService->execute($spinRequest);
-            ECHO 'Win: ' . $spinResponse->getCurrency() . ' ' . $spinResponse->getAmount() . ' (Payout ' . $spinResponse->getPayoutPercentage() . '%)'. PHP_EOL;
 
-            //TODO: Draw GRID
+            //Draw GRID
+            foreach ($spinResponse->getGridResult() as $gridRowInfo) {
+                echo PHP_EOL . implode("\t",  $gridRowInfo['row']) . "\t => " . $gridRowInfo['payoutPercentage'] . '%';
 
-            //TODO: Print result win amount (if exists)
+            }
+
+            //calculate win amount on the payout percentage
+            $totalWinAmount =( ($spinRequest->getAmount() / 100) * $spinResponse->getPayoutPercentage());
+            //Print result win amount (if exists)
+            ECHO PHP_EOL . 'Win: ' . $spinRequest->getCurrency() . ' ' . $totalWinAmount . ' cents (Payout ' . $spinResponse->getPayoutPercentage() . '%)';
+
         }catch (\Throwable $e){
             Echo 'Error: ' . $e->getMessage();
         }

@@ -7,40 +7,20 @@ use App\Services\DTO\Response\ResponseInterface;
 
 class SpinResponse implements ResponseInterface
 {
-    private $amount = 0;
-    private $currency = '';
     private $payoutPercentage = 0;
+    private $gridResult = [];
 
     /**
      * SpinRequest constructor.
      *
-     * @param string $currency Currency Code
-     * @param int $amount The total amount won in cents
      * @param int $payoutPercentage The total payout percentage that calculated the win
+     * @param array $gridResult The final grid combination and payout information
      */
-    public function __construct(string $currency , int $amount, int $payoutPercentage)
+    public function __construct(int $payoutPercentage, array $gridResult)
     {
-        $this->amount = $amount;
-        $this->currency = $currency;
         $this->payoutPercentage = $payoutPercentage;
-    }
+        $this->gridResult = $gridResult;
 
-
-    /**
-     * @return string
-     */
-    public function getCurrency(): string
-    {
-        return $this->currency;
-    }
-
-
-    /**
-     * @return int
-     */
-    public function getAmount(): int
-    {
-        return $this->amount;
     }
 
     /**
@@ -51,5 +31,12 @@ class SpinResponse implements ResponseInterface
         return $this->payoutPercentage;
     }
 
+    /**
+     * @return array
+     */
+    public function getGridResult(): array
+    {
+        return $this->gridResult;
+    }
 
 }

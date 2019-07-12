@@ -11,7 +11,7 @@ use Demo\Domain\Services\DTO\Response\GenerateSpinResponse;
 
 class GenerateSpinService implements GenerateSpinServiceInterface
 {
-    private $allowedSymbols = ['9','10','J','Q','K','A','cat','dog','monkey','bird'];
+    private $allowedSymbols = ['9','0','J','Q','K','A','C','D','M','B'];
 
     /**
      * @param RequestInterface|null|GenerateSpinRequest $request
