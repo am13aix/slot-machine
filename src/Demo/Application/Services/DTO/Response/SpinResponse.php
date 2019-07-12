@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Demo\Application\Services\DTO\Request;
+namespace Demo\Application\Services\DTO\Response;
 
-use App\Services\DTO\Request\ResponseInterface;
+use App\Services\DTO\Response\ResponseInterface;
 
 class SpinResponse implements ResponseInterface
 {

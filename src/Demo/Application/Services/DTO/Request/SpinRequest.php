@@ -3,7 +3,6 @@
 
 namespace Demo\Application\Services\DTO\Request;
 
-
 use App\Services\DTO\Request\RequestInterface;
 
 class SpinRequest implements RequestInterface
@@ -15,12 +14,21 @@ class SpinRequest implements RequestInterface
      * SpinRequest constructor.
      *
      * @param string $currency Currency Code
-     * @param int $amount Amount of spin in cents
+     * @param int    $amount Amount of spin in cents
+     * @throws \Exception
      */
     public function __construct(string $currency , int $amount)
     {
-        $this->amount = $amount;
+        //validate the request abides to the contract rules
+        If (!in_array($currency, ['EUR', 'GBP', 'USD'])){
+            throw new \Exception('Currency Code must be either EUR, GBP, USD', 10001);
+        }
         $this->currency = $currency;
+
+        If ($amount <=0){
+            throw new \Exception('Amount must be greater than 0', 10002);
+        }
+        $this->amount = $amount;
     }
 
 

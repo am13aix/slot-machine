@@ -5,7 +5,7 @@ namespace Demo\Domain\Services;
 
 
 use App\Services\DTO\Request\RequestInterface;
-use App\Services\DTO\Request\ResponseInterface;
+use App\Services\DTO\Response\ResponseInterface;
 
 class GenerateSpinService implements GenerateSpinServiceInterface
 {

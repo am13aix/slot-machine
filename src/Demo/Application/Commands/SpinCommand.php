@@ -32,7 +32,14 @@ class SpinCommand extends Command
 
     public function handle()
     {
-//        $spinResponse = $this->spinService->execute(new SpinRequest('EUR', 100));
-//        ECHO json_encode($spinResponse) . PHP_EOL;
+        try{
+            $spinRequest= new SpinRequest('EUR', 0);
+            ECHO 'Bet: ' . $spinRequest->getCurrency() . ' ' . $spinRequest->getAmount() . PHP_EOL;
+            $spinResponse = $this->spinService->execute($spinRequest);
+            ECHO 'Win: ' . $spinResponse->getCurrency() . ' ' . $spinResponse->getAmount() . ' (Payout ' . $spinResponse->getPayoutPercentage() . '%)'. PHP_EOL;
+
+        }catch (\Throwable $e){
+            Echo 'Error: ' . $e->getMessage();
+        }
     }
 }
