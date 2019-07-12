@@ -33,11 +33,15 @@ class SpinCommand extends Command
     public function handle()
     {
         try{
-            $spinRequest= new SpinRequest('EUR', 0);
+            $spinRequest= new SpinRequest('EUR', 10);
             ECHO 'Bet: ' . $spinRequest->getCurrency() . ' ' . $spinRequest->getAmount() . PHP_EOL;
+
             $spinResponse = $this->spinService->execute($spinRequest);
             ECHO 'Win: ' . $spinResponse->getCurrency() . ' ' . $spinResponse->getAmount() . ' (Payout ' . $spinResponse->getPayoutPercentage() . '%)'. PHP_EOL;
 
+            //TODO: Draw GRID
+
+            //TODO: Print result win amount (if exists)
         }catch (\Throwable $e){
             Echo 'Error: ' . $e->getMessage();
         }
