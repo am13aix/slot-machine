@@ -16,7 +16,7 @@ class SpinResponse implements ResponseInterface
      * @param int $payoutPercentage The total payout percentage that calculated the win
      * @param array $gridResult The final grid combination and payout information
      */
-    public function __construct(int $payoutPercentage, array $gridResult)
+    public function __construct(array $gridResult, int $payoutPercentage)
     {
         $this->payoutPercentage = $payoutPercentage;
         $this->gridResult = $gridResult;

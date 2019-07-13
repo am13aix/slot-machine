@@ -34,8 +34,11 @@ class SpinService implements ServiceInterface
     }
 
     /**
+     * Binds all the domain services to generate the grid
+     * and calculate the payout percentage related to the generated grid
+     *
      * @param RequestInterface|null|SpinRequest $request
-     * @return ResponseInterface|null|SpinResponse
+     * @return ResponseInterface|null|SpinResponse Contains the generated grid, payout per row and total payout
      * @throws \Exception
      */
     public function execute(RequestInterface $request = null): ?ResponseInterface
@@ -44,19 +47,11 @@ class SpinService implements ServiceInterface
         /** @var GenerateSpinResponse $generatedGrid */
         $generateSpinServiceResponse = $this->generateSpinService->execute(new GenerateSpinRequest(5, 3));
 
-        /** @var array $generatedGrid */
-        $generatedGrid = $generateSpinServiceResponse->getGrid();
-
         //calculate if there is a payout
         /** @var CalculatePayoutResponse $calculatePayoutResponse */
-        $calculatePayoutResponse = $this->calculatePayoutService->execute(new CalculatePayoutRequest($generatedGrid));
-
-        $totalPayoutPercentage = 0;
-        foreach($calculatePayoutResponse->getGridWithRowPayout() as $rowInformation){
-            $totalPayoutPercentage = $totalPayoutPercentage + (int) $rowInformation['payoutPercentage'];
-        }
+        $calculatePayoutResponse = $this->calculatePayoutService->execute(new CalculatePayoutRequest($generateSpinServiceResponse->getGrid()));
 
         //Return response with win
-        return new SpinResponse($totalPayoutPercentage, $calculatePayoutResponse->getGridWithRowPayout());
+        return new SpinResponse($calculatePayoutResponse->getGridWithRowPayout(), $calculatePayoutResponse->getTotalPayoutPercentage());
     }
 }

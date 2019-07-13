@@ -11,14 +11,18 @@ class CalculatePayoutResponse implements ResponseInterface
     /** @var array */
     private $gridWithRowPayout=[];
 
+    private $totalPayoutPercentage = 0;
+
     /**
      * CalculatePayoutResponse constructor.
      *
      * @param array $gridWithRowPayout
+     * @param int   $totalPayoutPercentage
      */
-    public function __construct(array $gridWithRowPayout)
+    public function __construct(array $gridWithRowPayout, int $totalPayoutPercentage)
     {
         $this->gridWithRowPayout = $gridWithRowPayout;
+        $this->totalPayoutPercentage = $totalPayoutPercentage;
     }
 
     /**
@@ -28,6 +32,16 @@ class CalculatePayoutResponse implements ResponseInterface
     {
         return $this->gridWithRowPayout;
     }
+
+    /**
+     * @return int
+     */
+    public function getTotalPayoutPercentage(): int
+    {
+        return $this->totalPayoutPercentage;
+    }
+
+
 
 
 }
