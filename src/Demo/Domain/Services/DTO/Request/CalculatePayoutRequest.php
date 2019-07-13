@@ -26,7 +26,13 @@ class CalculatePayoutRequest implements RequestInterface
      */
     public function __construct(array $grid, array $printableGrid)
     {
+        if (!count($grid)){
+            throw new \InvalidArgumentException('grid cannot be an empty array ',50001);
+        }
         $this->grid = $grid;
+        if (!count($printableGrid)){
+            throw new \InvalidArgumentException('printableGrid cannot be an empty array ',50002);
+        }
         $this->printableGrid = $printableGrid;
     }
 

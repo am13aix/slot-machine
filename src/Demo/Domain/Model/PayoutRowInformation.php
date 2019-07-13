@@ -48,10 +48,21 @@ class PayoutRowInformation
         array $payLines,
         int $payoutPercentage
     ) {
+        if (!count($row)){
+            throw new \InvalidArgumentException('row cannot be an empty array ',40001);
+        }
         $this->row = $row;
+        if (!count($printableRow)){
+            throw new \InvalidArgumentException('printableRow cannot be an empty array ',40002);
+        }
         $this->printableRow = $printableRow;
         $this->payoutMatch = $payoutMatch;
         $this->payLines = $payLines;
+
+        $this->row = $row;
+        if ($payoutPercentage < 0){
+            throw new \InvalidArgumentException('payoutPercentage cannot be less than 0',40003);
+        }
         $this->payoutPercentage = $payoutPercentage;
     }
 
