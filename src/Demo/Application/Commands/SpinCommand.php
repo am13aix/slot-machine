@@ -1,13 +1,18 @@
 <?php
 
-
 namespace Demo\Application\Commands;
 
 use Demo\Application\Services\DTO\Request\SpinRequest;
 use Demo\Application\Services\DTO\Response\SpinResponse;
 use Demo\Application\Services\SpinService;
+use Demo\Domain\Model\PayoutRowInformation;
 use Illuminate\Console\Command;
 
+/**
+ * Class SpinCommand
+ *
+ * @package Demo\Application\Commands
+ */
 class SpinCommand extends Command
 {
     /** @var string */
@@ -30,6 +35,9 @@ class SpinCommand extends Command
         $this->spinService = $spinService;
     }
 
+    /**
+     *Process the Command to generate a spin and calculate win
+     */
     public function handle()
     {
         try{
@@ -38,9 +46,11 @@ class SpinCommand extends Command
             $spinResponse = $this->spinService->execute($spinRequest);
 
             //Draw GRID
-            ECHO PHP_EOL . "BOARD\t\t\t\t\tPAYOUT PERCENTAGE \tPAY-LINE";
+            ECHO PHP_EOL . "BOARD\t\t\t\t\t\tPAYOUT % \tPAY-LINE";
+
+            /** @var PayoutRowInformation $gridRowInfo */
             foreach ($spinResponse->getGridResult() as $gridRowInfo) {
-                echo PHP_EOL . implode("\t",  $gridRowInfo['row']) . "\t\t" . $gridRowInfo['payoutPercentage'] . "%\t\t" . json_encode($gridRowInfo['payLines']);
+                echo PHP_EOL . implode("\t",  $gridRowInfo->getPrintableRow()) . "\t\t" . $gridRowInfo->getPayoutPercentage() . "%\t\t" . json_encode($gridRowInfo->getPayLines());
             }
 
             //calculate win amount on the payout percentage
@@ -52,7 +62,8 @@ class SpinCommand extends Command
             ECHO PHP_EOL . "WIN:\t" . $spinRequest->getCurrency() . ' ' . $totalWinAmount . ' cents';
 
         }catch (\Throwable $e){
-            Echo 'Error: ' . $e->getMessage();
+            Echo PHP_EOL . 'FILE: ' . $e->getFile() . ' LINE: ' . $e->getLine();
+            Echo PHP_EOL . 'Error: ' . $e->getMessage();
         }
     }
 }

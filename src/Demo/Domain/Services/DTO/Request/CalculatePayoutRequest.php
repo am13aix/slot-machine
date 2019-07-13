@@ -6,19 +6,28 @@ namespace Demo\Domain\Services\DTO\Request;
 
 use App\Services\DTO\Request\RequestInterface;
 
+/**
+ * Class CalculatePayoutRequest
+ *
+ * @package Demo\Domain\Services\DTO\Request
+ */
 class CalculatePayoutRequest implements RequestInterface
 {
-    /** @var array */
+    /** @var array grid with symbols */
     private $grid=[];
+    /** @var array grid with printable symbols */
+    private $printableGrid;
 
     /**
      * CalculatePayoutRequest constructor.
      *
      * @param array $grid
+     * @param array $printableGrid
      */
-    public function __construct(array $grid)
+    public function __construct(array $grid, array $printableGrid)
     {
         $this->grid = $grid;
+        $this->printableGrid = $printableGrid;
     }
 
 
@@ -30,7 +39,12 @@ class CalculatePayoutRequest implements RequestInterface
         return $this->grid;
     }
 
-
-
+    /**
+     * @return array
+     */
+    public function getPrintableGrid(): array
+    {
+        return $this->printableGrid;
+    }
 
 }

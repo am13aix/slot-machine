@@ -5,10 +5,25 @@ namespace Demo\Application\Services\DTO\Response;
 
 use App\Services\DTO\Response\ResponseInterface;
 
+/**
+ * Class SpinResponse
+ *
+ * @package Demo\Application\Services\DTO\Response
+ */
 class SpinResponse implements ResponseInterface
 {
+    /**
+     * @var int
+     */
     private $payoutPercentage = 0;
+    /**
+     * @var array
+     */
     private $gridResult = [];
+    /**
+     * @var array
+     */
+    private $printableGridResult = [];
 
     /**
      * SpinRequest constructor.
@@ -37,6 +52,14 @@ class SpinResponse implements ResponseInterface
     public function getGridResult(): array
     {
         return $this->gridResult;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPrintableGridResult(): array
+    {
+        return $this->printableGridResult;
     }
 
 }

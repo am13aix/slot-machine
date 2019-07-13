@@ -11,10 +11,10 @@ use App\Services\DTO\Request\RequestInterface;
  */
 class GenerateSpinRequest implements RequestInterface
 {
-    /** @var int */
+    /** @var int total amount of columns*/
     private $columnCount=0;
 
-    /** @var int */
+    /** @var int total amount of rows*/
     private $rowCount=0;
 
 

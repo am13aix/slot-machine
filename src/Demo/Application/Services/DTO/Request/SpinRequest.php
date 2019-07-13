@@ -5,9 +5,20 @@ namespace Demo\Application\Services\DTO\Request;
 
 use App\Services\DTO\Request\RequestInterface;
 
+/**
+ * Class SpinRequest
+ *
+ * @package Demo\Application\Services\DTO\Request
+ */
 class SpinRequest implements RequestInterface
 {
+    /**
+     * @var int
+     */
     private $amount = 0;
+    /**
+     * @var string
+     */
     private $currency = '';
 
     /**

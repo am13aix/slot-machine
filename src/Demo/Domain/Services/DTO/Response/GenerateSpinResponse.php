@@ -6,19 +6,28 @@ namespace Demo\Domain\Services\DTO\Response;
 
 use App\Services\DTO\Response\ResponseInterface;
 
+/**
+ * Class GenerateSpinResponse
+ *
+ * @package Demo\Domain\Services\DTO\Response
+ */
 class GenerateSpinResponse implements ResponseInterface
 {
-    /** @var array */
+    /** @var array grid symbols */
     private $grid=[];
+    /** @var array grid with printable symbols */
+    private $printableGrid=[];
 
     /**
      * GenerateSpinResponse constructor.
      *
      * @param array $grid
+     * @param array $printableGrid
      */
-    public function __construct(array $grid)
+    public function __construct(array $grid, array $printableGrid)
     {
         $this->grid = $grid;
+        $this->printableGrid = $printableGrid;
     }
 
     /**
@@ -29,7 +38,11 @@ class GenerateSpinResponse implements ResponseInterface
         return $this->grid;
     }
 
-
-
-
+    /**
+     * @return array
+     */
+    public function getPrintableGrid(): array
+    {
+        return $this->printableGrid;
+    }
 }

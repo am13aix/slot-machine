@@ -6,14 +6,21 @@ namespace Demo\Domain\Services;
 
 use App\Services\DTO\Request\RequestInterface;
 use App\Services\DTO\Response\ResponseInterface;
+use Demo\Domain\Model\PayoutRowInformation;
 use Demo\Domain\Services\DTO\Request\CalculatePayoutRequest;
 use Demo\Domain\Services\DTO\Response\CalculatePayoutResponse;
-use Illuminate\Http\Resources\PotentiallyMissing;
-use function MongoDB\BSON\toJSON;
 
+/**
+ * Class CalculatePayoutService
+ *
+ * @package Demo\Domain\Services
+ */
 class CalculatePayoutService implements CalculatePayoutServiceInterface
 {
 
+    /**
+     * @var array Fixed pay-line grid
+     */
     private $payLineGrid = [
       [0,3,6,9,12],
       [1,4,7,10,13],
@@ -30,10 +37,12 @@ class CalculatePayoutService implements CalculatePayoutServiceInterface
     {
         // loop each grid row and calculate payout
         $result=[];
+        $totalPayoutPercentage =0;
         for($rowIndex = 1; $rowIndex <=3; $rowIndex++){
 
             //get row columns
             $row = $request->getGrid()[$rowIndex-1];
+            $printableRow = $request->getPrintableGrid()[$rowIndex-1];
 
             //identify potential win
             preg_match('/(.)\1{2,4}/', implode('', $row),$regexResult);
@@ -62,15 +71,11 @@ class CalculatePayoutService implements CalculatePayoutServiceInterface
                 }
             }
 
-            $result[] = [
-                'row'=>$row,
-                'payoutMatch' => str_split($match),
-                'payLines' =>$payLines,
-                'payoutPercentage' => $payoutPercentage
-            ];
+            $totalPayoutPercentage= $totalPayoutPercentage +$payoutPercentage;
+            $result[] = new PayoutRowInformation($row, $printableRow, str_split($match), $payLines, $payoutPercentage);
         }
 
-        return new CalculatePayoutResponse($result, array_sum(array_pluck($result,'payoutPercentage')));
+        return new CalculatePayoutResponse($result, $totalPayoutPercentage);
     }
 
     /** According to the occurrence of the same symbol, determine the percentage

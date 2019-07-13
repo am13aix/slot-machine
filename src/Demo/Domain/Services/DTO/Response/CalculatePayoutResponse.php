@@ -6,11 +6,19 @@ namespace Demo\Domain\Services\DTO\Response;
 
 use App\Services\DTO\Response\ResponseInterface;
 
+/**
+ * Class CalculatePayoutResponse
+ *
+ * @package Demo\Domain\Services\DTO\Response
+ */
 class CalculatePayoutResponse implements ResponseInterface
 {
-    /** @var array */
+    /** @var array grid with all information */
     private $gridWithRowPayout=[];
 
+    /**
+     * @var int total payout percentage amount
+     */
     private $totalPayoutPercentage = 0;
 
     /**

@@ -16,6 +16,11 @@ use Demo\Domain\Services\DTO\Response\CalculatePayoutResponse;
 use Demo\Domain\Services\DTO\Response\GenerateSpinResponse;
 use Demo\Domain\Services\GenerateSpinServiceInterface;
 
+/**
+ * Class SpinService
+ *
+ * @package Demo\Application\Services
+ */
 class SpinService implements ServiceInterface
 {
     /** @var CalculatePayoutServiceInterface */
@@ -25,6 +30,12 @@ class SpinService implements ServiceInterface
     private $generateSpinService = null;
 
 
+    /**
+     * SpinService constructor.
+     *
+     * @param GenerateSpinServiceInterface    $generateSpinService
+     * @param CalculatePayoutServiceInterface $calculatePayoutService
+     */
     public function __construct(
         GenerateSpinServiceInterface $generateSpinService,
         CalculatePayoutServiceInterface $calculatePayoutService
@@ -49,9 +60,10 @@ class SpinService implements ServiceInterface
 
         //calculate if there is a payout
         /** @var CalculatePayoutResponse $calculatePayoutResponse */
-        $calculatePayoutResponse = $this->calculatePayoutService->execute(new CalculatePayoutRequest($generateSpinServiceResponse->getGrid()));
+        $calculatePayoutResponse = $this->calculatePayoutService->execute(new CalculatePayoutRequest($generateSpinServiceResponse->getGrid(), $generateSpinServiceResponse->getPrintableGrid()));
 
         //Return response with win
+        echo PHP_EOL . $calculatePayoutResponse->getTotalPayoutPercentage() . PHP_EOL;
         return new SpinResponse($calculatePayoutResponse->getGridWithRowPayout(), $calculatePayoutResponse->getTotalPayoutPercentage());
     }
 }
