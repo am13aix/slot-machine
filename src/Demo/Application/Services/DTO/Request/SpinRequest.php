@@ -26,18 +26,18 @@ class SpinRequest implements RequestInterface
      *
      * @param string $currency Currency Code
      * @param int    $amount Amount of spin in cents
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function __construct(string $currency , int $amount)
     {
         //validate the request abides to the contract rules
         If (!in_array($currency, ['EUR', 'GBP', 'USD'])){
-            throw new \Exception('Currency Code must be either EUR, GBP, USD', 10001);
+            throw new \InvalidArgumentException('Currency Code must be either EUR, GBP, USD', 10001);
         }
         $this->currency = $currency;
 
         If ($amount <=0){
-            throw new \Exception('Amount must be greater than 0', 10002);
+            throw new \InvalidArgumentException('Amount must be greater than 0', 10002);
         }
         $this->amount = $amount;
     }

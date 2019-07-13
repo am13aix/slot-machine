@@ -8,8 +8,6 @@ use App\Services\DTO\Request\RequestInterface;
 use App\Services\DTO\Response\ResponseInterface;
 use Demo\Domain\Services\DTO\Request\GenerateSpinRequest;
 use Demo\Domain\Services\DTO\Response\GenerateSpinResponse;
-use http\Exception\InvalidArgumentException;
-use function MongoDB\BSON\toJSON;
 
 /**
  * Class GenerateSpinService
@@ -51,14 +49,15 @@ class GenerateSpinService implements GenerateSpinServiceInterface
         return new GenerateSpinResponse($combination, $printableCombination);
     }
 
+
     /**
-     * @param $symbol
-     * @return mixed
+     * @param string $symbol 1 char symbol
+     * @return string printable version of the symbol
      */
-    public function getPrintableSymbolVersion($symbol){
+    public function getPrintableSymbolVersion(string $symbol){
         $index = array_search($symbol, $this->allowedSymbols);
         if ($index===false){
-            throw new \InvalidArgumentException("The symbol [$symbol] does not exist",3001);
+            throw new \InvalidArgumentException("The symbol [$symbol] does not exist",30001);
         }
         return $this->allowedPrintableSymbols[$index];
     }

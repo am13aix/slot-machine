@@ -23,18 +23,18 @@ class GenerateSpinRequest implements RequestInterface
      *
      * @param int $columnCount
      * @param int $rowCount
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function __construct(int $columnCount, int $rowCount)
     {
         //validate the amounts are in positive
         If ($columnCount <=0){
-            throw new \Exception('Column count should be greater than 0', 20001);
+            throw new \InvalidArgumentException('Column count should be greater than 0', 20001);
         }
         $this->columnCount = $columnCount;
 
         If ($rowCount <=0){
-            throw new \Exception('Row count should be greater than 0', 20001);
+            throw new \InvalidArgumentException('Row count should be greater than 0', 20002);
         }
         $this->rowCount = $rowCount;
     }

@@ -6,7 +6,7 @@ namespace Demo\Domain\Services;
 
 use App\Services\DTO\Request\RequestInterface;
 use App\Services\DTO\Response\ResponseInterface;
-use Demo\Domain\Model\PayoutRowInformation;
+use Demo\Domain\Models\PayoutRowInformation;
 use Demo\Domain\Services\DTO\Request\CalculatePayoutRequest;
 use Demo\Domain\Services\DTO\Response\CalculatePayoutResponse;
 

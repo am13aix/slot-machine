@@ -5,7 +5,7 @@ namespace Demo\Application\Commands;
 use Demo\Application\Services\DTO\Request\SpinRequest;
 use Demo\Application\Services\DTO\Response\SpinResponse;
 use Demo\Application\Services\SpinService;
-use Demo\Domain\Model\PayoutRowInformation;
+use Demo\Domain\Models\PayoutRowInformation;
 use Illuminate\Console\Command;
 
 /**

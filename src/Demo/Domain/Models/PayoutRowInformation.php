@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Demo\Domain\Model;
+namespace Demo\Domain\Models;
 
 
 /**

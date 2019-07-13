@@ -63,7 +63,6 @@ class SpinService implements ServiceInterface
         $calculatePayoutResponse = $this->calculatePayoutService->execute(new CalculatePayoutRequest($generateSpinServiceResponse->getGrid(), $generateSpinServiceResponse->getPrintableGrid()));
 
         //Return response with win
-        echo PHP_EOL . $calculatePayoutResponse->getTotalPayoutPercentage() . PHP_EOL;
         return new SpinResponse($calculatePayoutResponse->getGridWithRowPayout(), $calculatePayoutResponse->getTotalPayoutPercentage());
     }
 }
