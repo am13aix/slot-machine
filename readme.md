@@ -69,4 +69,5 @@ The below grid shows the fixed pay-lines that will be returned if a grid row has
 To run all `phpunit` tests against Models, Services and DTO (_Request, Response_) classes, follow the below steps:
 1. Open Terminal to the project's directory
 2. Run phpunit (_ideally within the vendor directory for potential version mismatch_) 
-```.\vendor\bin\phpunit```
+    - Local: ```.\vendor\bin\phpunit```
+    - Container: ````vendor/bin/phpunit````

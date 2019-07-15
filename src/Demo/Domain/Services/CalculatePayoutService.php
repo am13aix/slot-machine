@@ -44,8 +44,8 @@ class CalculatePayoutService implements CalculatePayoutServiceInterface
             $row = $request->getGrid()[$rowIndex-1];
             $printableRow = $request->getPrintableGrid()[$rowIndex-1];
 
-            //identify potential win
-            preg_match('/(.)\1{2,4}/', implode('', $row),$regexResult);
+            //identify potential win (row must start with at least 3 consecutive identical symbols)
+            preg_match('/^(.)\1{2,4}/m', implode('', $row),$regexResult);
 
             //calculate payout percentage according to the about of consecutive identical symbols
             $match = '';

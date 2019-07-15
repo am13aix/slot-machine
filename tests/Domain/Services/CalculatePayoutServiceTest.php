@@ -14,13 +14,13 @@ class CalculatePayoutServiceTest extends TestCase
 {
     private $grid = [
         ['9','9','9','9','9'],
-        ['9','B','9','0','J'],
+        ['9','9','9','0','J'],
         ['9','M','M','M','M'],
     ];
 
     private $printableGrid = [
         ['9','9','9','9','9'],
-        ['9','BIR','9','0','J'],
+        ['9','9','9','0','J'],
         ['9','MON','MON','MON','MON'],
     ];
 
@@ -55,18 +55,18 @@ class CalculatePayoutServiceTest extends TestCase
 
         /** @var PayoutRowInformation $row1 */
         $row1 = $this->serviceResponse->getGridWithRowPayout()[1];
-        $this->assertEquals($row1->getPayoutPercentage(),0);
+        $this->assertEquals($row1->getPayoutPercentage(),20);
         $this->assertEquals(json_encode($row1->getRow()),json_encode($this->grid[1]));
         $this->assertEquals(json_encode($row1->getPrintableRow()),json_encode($this->printableGrid[1]));
-        $this->assertEquals(json_encode($row1->getPayLines()),json_encode([]));
+        $this->assertEquals(json_encode($row1->getPayLines()),json_encode([[2,5,8,11,14],[2,4,6,10,14]]));
 
         /** @var PayoutRowInformation $row2 */
         $row2 = $this->serviceResponse->getGridWithRowPayout()[2];
-        $this->assertEquals($row2->getPayoutPercentage(),200);
+        $this->assertEquals($row2->getPayoutPercentage(),0);
         $this->assertEquals(json_encode($row2->getRow()),json_encode($this->grid[2]));
         $this->assertEquals(json_encode($row2->getPrintableRow()),json_encode($this->printableGrid[2]));
-        $this->assertEquals(json_encode($row2->getPayLines()),json_encode([[0,4,8,10,12]]));
+        $this->assertEquals(json_encode($row2->getPayLines()),json_encode([]));
 
-        $this->assertEquals($this->serviceResponse->getTotalPayoutPercentage(), '1200');
+        $this->assertEquals($this->serviceResponse->getTotalPayoutPercentage(), '1020');
     }
 }
