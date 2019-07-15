@@ -1,0 +1,20 @@
+version: "3.1"
+services:
+
+
+  php-fpm:
+    build: docker/php-fpm
+    #      environment:
+    #        XDEBUG_CONFIG: "remote_host=${MY_DEV_IP}"
+    container_name: slot-machine-php-fpm
+    working_dir: /var/www/slot-machine
+    volumes:
+    - .:/var/www/slot-machine
+    - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
+
+  composer:
+    image: composer
+    command: install
+    working_dir: /var/www/slot-machine
+    volumes:
+    - .:/var/www/slot-machine

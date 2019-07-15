@@ -13,7 +13,7 @@ The below grid shows the fixed pay-lines that will be returned if a grid row has
 
 ### Assumptions
 1. The pay-line grid is a fixed multi-dimensional and does not increase in rows.
-2. Since the pay-line grid is fixed and has 5 rows, the 1st and 2nd row of the slots grid will have 2 pay-lines if a payout exist
+2. Since the pay-line grid is fixed and has 5 rows, then the 1st and 2nd rows of the slots grid will have 2 pay-lines if a payout exist
 
 |Slot Grid Row |Pay-lines Rows |
 | --- | ---- |
@@ -34,23 +34,36 @@ The below grid shows the fixed pay-lines that will be returned if a grid row has
 ### Locally Run
 1. Clone / download repository locally.
 2. Install composer vendors.
+
     `composer install`
 3. Open terminal and navigate to the project's directory.
 4. Run PHP Artisan to list all commands.
+
     `php artisan`
-5. Run the different commands to sample out the functionality of the application. 
+5. Run the command to sample out the functionality of the application. 
+
+    `php artisan demo:auto-spin`
 
 ### Docker Container Setup
+1. Clone / download repository locally.
+3. Open terminal and navigate to the project's directory.
+4. Run the docker-compose file to build the docker setup together with composer update.
 
+    `docker-compose up --build -d`
+5. List the docker containers to get the id or the name of the container
+
+    `docker ps`
+6. Open the container
+
+    `docker exec -it slot-machine-php-fpm bash` 
+7. Run the command to sample out the functionality of the application. 
+
+    `php artisan demo:auto-spin`
 
 ## Running Commands
-The below are the list of commands to test the different functionality:
-
 |Command | Description | PHP Artisan |
 | --- | ---- | --- |
 | Auto Spin | Generate a random spin with a bet amount of Eur 1.00 | `php artisan demo:auto-spin` | 
-| Single Row Win Spin | Generate a combination of the slot with the first row as always winning 3 match | `php artisan demo:single-row-win-spin` |
-| Double Row Win Spin | Generate a combination of the slot with the first two rows as always winning 4 match | `php artisan demo:single-row-win-spin` |
 
 ## Running Tests
 To run all `phpunit` tests against Models, Services and DTO (_Request, Response_) classes, follow the below steps:
